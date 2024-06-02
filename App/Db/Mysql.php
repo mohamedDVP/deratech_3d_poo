@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Db;
+use Dotenv\Dotenv;
+
+require __DIR__.'/../../vendor/autoload.php';
+$env = Dotenv::createImmutable(__DIR__);
+$env->load();
 
 class Mysql
 {
@@ -14,23 +19,12 @@ class Mysql
 
     public function __construct()
     {
-        $conf = require_once _ROOTPATH_.'/db_config.php';
 
-        if (isset($conf['db_name'])) {
-            $this->db_name = $conf['db_name'];
-        }
-        if (isset($conf['db_user'])) {
-            $this->db_user = $conf['db_user'];
-        }
-        if (isset($conf['db_password'])) {
-            $this->db_password = $conf['db_password'];
-        }
-        if (isset($conf['db_port'])) {
-            $this->db_port = $conf['db_port'];
-        }
-        if (isset($conf['db_host'])) {
-            $this->db_host = $conf['db_host'];
-        }
+        $this->db_name = $_SERVER["DB_NAME"];
+        $this->db_user = $_SERVER["DB_USER"];
+        $this->db_password = $_SERVER["DB_PASSWORD"];
+        $this->db_port = $_SERVER["DB_PORT"];
+        $this->db_host = $_SERVER["DB_HOST"];
     }
 
     public static function getInstance():self
